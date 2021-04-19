@@ -1,3 +1,64 @@
-<svg width="1440" height="810" viewBox="0 0 1440 810" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M1440 21.5512V810H0V366.365C88.6928 340.204 227.315 317.448 380 341C509.998 361.053 561.687 292.915 622.646 212.556C693.923 118.596 777.873 7.92915 1014.5 2.00001C1209.96 -2.89761 1347.34 6.97342 1440 21.5512Z" fill="#FDD548"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1440"
+   height="4000"
+   viewBox="0 0 1440 4000"
+   fill="none"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="bg.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="986"
+     id="namedview6"
+     showgrid="false"
+     inkscape:snap-page="true"
+     inkscape:zoom="0.22654321"
+     inkscape:cx="-588.43056"
+     inkscape:cy="3312.3815"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4"
+     inkscape:snap-nodes="true" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M 1440,83.86921 V 872.31802 H 0 v -443.635 c 88.6928,-26.161 227.315,-48.917 380,-25.365 129.998,20.053 181.687,-48.085 242.646,-128.444 71.277,-93.96 155.227,-204.62686 391.854,-210.556 195.46,-4.89762 332.84,4.97341 425.5,19.55119 z"
+     fill="#fdd548"
+     id="path2" />
+  <path
+     id="rect835"
+     style="fill:#fdd548;fill-opacity:1;stroke:none;stroke-width:2.52724"
+     d="M 0,872.31802 H 1440 V 4000 H 0 Z" />
 </svg>
