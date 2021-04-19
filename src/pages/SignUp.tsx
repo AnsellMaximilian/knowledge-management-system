@@ -1,5 +1,6 @@
 import { Button, Container, makeStyles, Paper, TextField } from '@material-ui/core'
 import React, {useState} from 'react'
+import { auth, db } from '../utils/firebase';
 
 const useStyles = makeStyles(theme => ({
     form: {
@@ -27,13 +28,30 @@ export default function SignUp() {
     const [name, setName] = useState('');
     const [bio, setBio] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('')
+    const [password, setPassword] = useState('');
+
+    const handleSubmit: React.FormEventHandler<HTMLFormElement>  = (e) => {
+        e.preventDefault();
+        console.log('test')
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(userRef => {
+                const user = userRef.user;
+                if(user){
+                    db.collection('userProfiles').doc(user.uid).set({name, bio})
+                        .then()
+                        .catch()
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     return (
         <Container maxWidth="xs">
             <Paper elevation={3} className={classes.container}>
                 <h1 className={classes.title}>Sign Up</h1>
-                <form className={classes.form}>
+                <form className={classes.form} onSubmit={handleSubmit}>
                     <TextField 
                         variant="outlined" 
                         margin="normal" 
@@ -64,7 +82,12 @@ export default function SignUp() {
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     />
-                    <Button variant="contained" color="primary" className={classes.submitButton}>Sign Up</Button>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        className={classes.submitButton}
+                        type="submit"
+                    >Sign Up</Button>
                 </form>
             </Paper>
         </Container>

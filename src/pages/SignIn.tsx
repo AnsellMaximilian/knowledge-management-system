@@ -1,5 +1,6 @@
 import { Button, Container, makeStyles, Paper, TextField } from '@material-ui/core'
 import React, {useState} from 'react'
+import { auth } from '../utils/firebase';
 
 const useStyles = makeStyles(theme => ({
     form: {
@@ -24,30 +25,26 @@ const useStyles = makeStyles(theme => ({
 export default function SignUp() {
     const classes = useStyles();
 
-    const [name, setName] = useState('');
-    const [bio, setBio] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('')
+    const [password, setPassword] = useState('');
+
+    const handleSubmit: React.FormEventHandler<HTMLFormElement>  = (e) => {
+        e.preventDefault();
+        console.log('test')
+        auth.signInWithEmailAndPassword(email, password)
+            .then(userRef => {
+                
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     return (
         <Container maxWidth="xs">
             <Paper elevation={3} className={classes.container}>
-                <h1 className={classes.title}>Sign Up</h1>
-                <form className={classes.form}>
-                    <TextField 
-                        variant="outlined" 
-                        margin="normal" 
-                        label="Full Name"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                    />
-                    <TextField 
-                        variant="outlined" 
-                        margin="normal" 
-                        label="Bio"
-                        value={bio}
-                        onChange={e => setBio(e.target.value)}
-                    />
+                <h1 className={classes.title}>Sign In</h1>
+                <form className={classes.form} onSubmit={handleSubmit}>
                     <TextField 
                         variant="outlined" 
                         margin="normal" 
@@ -64,7 +61,12 @@ export default function SignUp() {
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     />
-                    <Button variant="contained" color="primary" className={classes.submitButton}>Sign Up</Button>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        className={classes.submitButton}
+                        type="submit"
+                    >Sign Up</Button>
                 </form>
             </Paper>
         </Container>
