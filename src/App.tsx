@@ -10,6 +10,9 @@ import SignIn from './pages/SignIn';
 import { User } from './types';
 import { auth, db } from './utils/firebase';
 import UserContext from './contexts/UserContext';
+import Forum from './pages/Forum';
+import urlFormatter from './utils/urlFormatter';
+import CreateArticle from './pages/CreateArticle';
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -58,15 +61,23 @@ function App() {
           <main className={`App ${classes.content}`}>
             <Container maxWidth="md">
               <Switch>
-                <Route exact path="/">
+                <Route exact path={urlFormatter("/")}>
                   <Home/>
                 </Route>
+
+                <Route exact path={urlFormatter("/forum")}>
+                  <Forum/>
+                </Route>
+
+                <Route exact path={urlFormatter("/forum/create")}>
+                  <CreateArticle/>
+                </Route>
                 
-                <Route exact path="/signup">
+                <Route exact path={urlFormatter("/signup")}>
                   {user ? <Redirect to={process.env.PUBLIC_URL + "/"}/> : <SignUp/>}
                 </Route>
 
-                <Route exact path="/signin">
+                <Route exact path={urlFormatter("/signin")}>
                   {user ? <Redirect to={process.env.PUBLIC_URL + "/"}/> : <SignIn/>}
                 </Route>
               </Switch>
