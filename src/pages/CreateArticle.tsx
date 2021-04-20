@@ -7,9 +7,10 @@ import UserContext from '../contexts/UserContext';
 import { Article } from '../types';
 
 const useStyles = makeStyles(theme => ({
-    createButton: {
+    postButton: {
         textTransform: 'none',
         fontWeight: 'bold',
+        margin: theme.spacing(1, 0, 5, 0)
 
     },
     editorContainer: {
@@ -99,7 +100,7 @@ export default function CreateArticle() {
             <Button 
                 variant="contained" 
                 color="primary"
-                className={classes.createButton}
+                className={classes.postButton}
                 fullWidth
                 onClick={postArticle}
             >Post Article <Edit/></Button>

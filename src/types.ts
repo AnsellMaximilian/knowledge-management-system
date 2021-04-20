@@ -14,3 +14,8 @@ export interface Article extends OutputData {
     userId: string;
     title: string;
 }
+
+export interface ArticleReadData extends Article {
+    userName: string;
+    id: string;
+}
