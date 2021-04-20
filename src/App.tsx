@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import { User } from './types';
 import { auth, db } from './utils/firebase';
+import UserContext from './contexts/UserContext';
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -51,27 +52,28 @@ function App() {
 
   return (
     <Router>
-      <div>
-        <Header/>
-        {user?.email}
-        <main className={`App ${classes.content}`}>
-          <Container maxWidth="md">
-            <Switch>
-              <Route exact path="/">
-                <Home/>
-              </Route>
-              
-              <Route exact path="/signup">
-                 {user ? <Redirect to={process.env.PUBLIC_URL + "/"}/> : <SignUp/>}
-              </Route>
+      <UserContext.Provider value={user}>
+        <div>
+          <Header/>
+          <main className={`App ${classes.content}`}>
+            <Container maxWidth="md">
+              <Switch>
+                <Route exact path="/">
+                  <Home/>
+                </Route>
+                
+                <Route exact path="/signup">
+                  {user ? <Redirect to={process.env.PUBLIC_URL + "/"}/> : <SignUp/>}
+                </Route>
 
-              <Route exact path="/signin">
-                 {user ? <Redirect to={process.env.PUBLIC_URL + "/"}/> : <SignIn/>}
-              </Route>
-            </Switch>
-          </Container>
-        </main>
-      </div>
+                <Route exact path="/signin">
+                  {user ? <Redirect to={process.env.PUBLIC_URL + "/"}/> : <SignIn/>}
+                </Route>
+              </Switch>
+            </Container>
+          </main>
+        </div>
+      </UserContext.Provider>
     </Router>
     
   );

@@ -1,6 +1,9 @@
-import { Container, makeStyles } from '@material-ui/core'
-import React from 'react'
+import { Container, makeStyles, Popover } from '@material-ui/core'
+import { AccountCircle } from '@material-ui/icons';
+import React, { useContext, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import UserContext from '../contexts/UserContext';
+import { auth } from '../utils/firebase';
 
 const useStyles = makeStyles(theme => ({
     header: {
@@ -25,11 +28,28 @@ const useStyles = makeStyles(theme => ({
     },
     activeLink: {
         fontWeight: 'bold'
+    },
+
+    accountMenuButton: {
+        display: 'flex',
+        alignItems: 'center',
+        cursor: 'pointer'
+    },
+
+    accountMenu: {
+        padding: theme.spacing(2),
+        '& $link': {
+            color: theme.palette.text.primary,
+            cursor: 'pointer'
+        }
     }
 }))
 
 export default function Header() {
     const classes = useStyles();
+    const user = useContext(UserContext);
+
+    const [accountMenuButton, setAccountMenuButton] = useState<HTMLLIElement | null>(null);
 
     return (
         <header className={classes.header}>
@@ -40,10 +60,37 @@ export default function Header() {
                         <li><NavLink to={`${process.env.PUBLIC_URL + '/forum'}`} className={classes.link} activeClassName={classes.activeLink}>Forum</NavLink></li>
                         <li><NavLink to={`${process.env.PUBLIC_URL + '/repsitory'}`} className={classes.link} activeClassName={classes.activeLink}>Repository</NavLink></li>
                     </ul>
-                    <ul className={classes.navList}>
-                        <li><NavLink to={`${process.env.PUBLIC_URL + '/signin'}`} className={classes.link} activeClassName={classes.activeLink}>Sign In</NavLink></li>
-                        <li><NavLink to={`${process.env.PUBLIC_URL + '/signup'}`} className={classes.link} activeClassName={classes.activeLink}>Sign Up</NavLink></li>
-                    </ul>
+                    {
+                        user ?
+                        <ul className={classes.navList}>
+                            <li className={classes.accountMenuButton} onClick={(e) => setAccountMenuButton(e.currentTarget)}>
+                                <AccountCircle/>
+                                <span>{user.name}</span>
+                            </li>
+                            <Popover
+                                open={!!accountMenuButton}
+                                anchorEl={accountMenuButton}
+                                onClose={() => setAccountMenuButton(null)}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'center',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'center',
+                                }}
+                            >
+                                <div className={classes.accountMenu}>
+                                    <span onClick={() => auth.signOut()} className={classes.link}>Sign Out</span>
+                                </div>
+                            </Popover>
+                        </ul>
+                        :
+                        <ul className={classes.navList}>
+                            <li><NavLink to={`${process.env.PUBLIC_URL + '/signin'}`} className={classes.link} activeClassName={classes.activeLink}>Sign In</NavLink></li>
+                            <li><NavLink to={`${process.env.PUBLIC_URL + '/signup'}`} className={classes.link} activeClassName={classes.activeLink}>Sign Up</NavLink></li>
+                        </ul>
+                    }
                 </nav>
             </Container>
         </header>
