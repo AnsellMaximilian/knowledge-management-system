@@ -58,7 +58,7 @@ export default function Header() {
                     <ul className={classes.navList}>
                         <li><NavLink exact to={`${process.env.PUBLIC_URL + '/'}`} className={classes.link} activeClassName={classes.activeLink}>Home</NavLink></li>
                         <li><NavLink to={`${process.env.PUBLIC_URL + '/forum'}`} className={classes.link} activeClassName={classes.activeLink}>Forum</NavLink></li>
-                        <li><NavLink to={`${process.env.PUBLIC_URL + '/repsitory'}`} className={classes.link} activeClassName={classes.activeLink}>Repository</NavLink></li>
+                        <li><NavLink to={`${process.env.PUBLIC_URL + '/repository'}`} className={classes.link} activeClassName={classes.activeLink}>Repository</NavLink></li>
                     </ul>
                     {
                         user ?

@@ -14,6 +14,7 @@ import Forum from './pages/Forum';
 import urlFormatter from './utils/urlFormatter';
 import CreateArticle from './pages/CreateArticle';
 import ViewArticle from './pages/ViewArticle';
+import Repository from './pages/Repository';
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -76,6 +77,10 @@ function App() {
 
                 <Route exact path={urlFormatter("/forum/view/:id")}>
                   <ViewArticle/>
+                </Route>
+
+                <Route exact path={urlFormatter("/repository")}>
+                  <Repository/>
                 </Route>
                 
                 <Route exact path={urlFormatter("/signup")}>

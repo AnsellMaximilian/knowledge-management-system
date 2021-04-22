@@ -30,3 +30,10 @@ export interface CommentReadData extends Comment {
     userName: string;
     id: string;
 }
+
+export interface FileMetaData extends firebase.storage.UploadMetadata{
+    customMetadata: {
+        description: string;
+        userId: string;
+    }
+}
