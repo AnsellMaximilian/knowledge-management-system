@@ -5,6 +5,8 @@ import EditorJS from '@editorjs/editorjs'
 import { db } from '../utils/firebase';
 import UserContext from '../contexts/UserContext';
 import { Article } from '../types';
+import { useHistory } from 'react-router';
+import urlFormatter from '../utils/urlFormatter';
 
 const useStyles = makeStyles(theme => ({
     postButton: {
@@ -55,6 +57,8 @@ export default function CreateArticle() {
     
     const user = useContext(UserContext);
 
+    const history = useHistory();
+
     useEffect(() => {
         setEditor(new EditorJS({
             holder: editorId
@@ -73,6 +77,7 @@ export default function CreateArticle() {
                     db.collection('articles').add(article);
                     editor.clear();
                     setArticleTitle('');
+                    history.push(urlFormatter('/forum'));
                 })
                 .catch()
         }
