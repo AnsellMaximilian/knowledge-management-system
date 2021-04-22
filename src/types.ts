@@ -37,3 +37,8 @@ export interface FileMetaData extends firebase.storage.UploadMetadata{
         userId: string;
     }
 }
+
+export interface FileListData {
+    userName: string;
+    name: string;
+}
