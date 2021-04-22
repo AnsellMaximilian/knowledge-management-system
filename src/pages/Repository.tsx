@@ -98,7 +98,8 @@ export default function Repository() {
                                                         ref: item,
                                                         userName,
                                                         description,
-                                                        url
+                                                        url,
+                                                        userId
                                                     }
                                                 )
                                             })
@@ -107,9 +108,10 @@ export default function Repository() {
                     })
                 })
 
-                Promise.all(filePromises).then(files => {
-                    setFiles(files);
-                })
+                Promise.all(filePromises)
+                    .then(files => {
+                        setFiles(files);
+                    })
             })
     }
 
@@ -142,6 +144,7 @@ export default function Repository() {
                 open={isFileDetailOpen}
                 setIsFileDetailOpen={setIsFileDetailOpen}
                 file={detailedFile}
+                getFiles={getFiles}
             />
         </div>
     )

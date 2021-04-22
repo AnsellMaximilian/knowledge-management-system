@@ -45,6 +45,7 @@ export interface FileListData {
 
 export interface File {
     userName: string;
+    userId: string;
     description: string;
     url: string;
     ref: firebase.storage.Reference
