@@ -1,6 +1,9 @@
 import { Button, makeStyles } from '@material-ui/core'
-import React from 'react'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom';
 import LightBulbAndSwitch from '../components/LightBulbAndSwitch'
+import UserContext from '../contexts/UserContext';
+import urlFormatter from '../utils/urlFormatter';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -38,12 +41,31 @@ export default function Home() {
 
     const classes = useStyles();
 
+    const user = useContext(UserContext);
+
     return (
         <div className={classes.container}>
             <div className={classes.mainLeft}>
                 <h1 className={classes.title}>Knowledge Management System</h1>
                 <h2 className={classes.subTitle}>Share Your Ideas</h2>
-                <Button variant="contained" color="primary" className={classes.callToAction}>Create Account</Button>
+                {
+                    user ?
+                    <Link to={urlFormatter('/profile')}>
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            className={classes.callToAction}
+                        >Your Profile</Button>
+                    </Link>
+                    :
+                    <Link to={urlFormatter('/signup')}>
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            className={classes.callToAction}
+                        >Create Account</Button>
+                    </Link>
+                }
             </div>
             <div>
                 <LightBulbAndSwitch/>
