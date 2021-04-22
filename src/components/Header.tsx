@@ -1,9 +1,10 @@
 import { Container, makeStyles, Popover } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons';
 import React, { useContext, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import UserContext from '../contexts/UserContext';
 import { auth } from '../utils/firebase';
+import urlFormatter from '../utils/urlFormatter';
 
 const useStyles = makeStyles(theme => ({
     header: {
@@ -33,14 +34,20 @@ const useStyles = makeStyles(theme => ({
     accountMenuButton: {
         display: 'flex',
         alignItems: 'center',
-        cursor: 'pointer'
+        cursor: 'pointer',
     },
 
     accountMenu: {
         padding: theme.spacing(2),
+        display: 'flex',
+        flexDirection: 'column',
+        width: 100,
         '& $link': {
             color: theme.palette.text.primary,
-            cursor: 'pointer'
+            cursor: 'pointer',
+            '&:hover': {
+                fontWeight: 'bold'
+            }
         }
     }
 }))
@@ -81,6 +88,7 @@ export default function Header() {
                                 }}
                             >
                                 <div className={classes.accountMenu}>
+                                    <Link to={urlFormatter('/profile')}><span className={classes.link}>Profile</span></Link>
                                     <span onClick={() => auth.signOut()} className={classes.link}>Sign Out</span>
                                 </div>
                             </Popover>

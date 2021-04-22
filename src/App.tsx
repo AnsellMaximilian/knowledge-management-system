@@ -15,6 +15,7 @@ import urlFormatter from './utils/urlFormatter';
 import CreateArticle from './pages/CreateArticle';
 import ViewArticle from './pages/ViewArticle';
 import Repository from './pages/Repository';
+import Profile from './pages/Profile';
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -65,6 +66,10 @@ function App() {
               <Switch>
                 <Route exact path={urlFormatter("/")}>
                   <Home/>
+                </Route>
+
+                <Route exact path={urlFormatter("/profile")}>
+                  <Profile/>
                 </Route>
 
                 <Route exact path={urlFormatter("/forum")}>
