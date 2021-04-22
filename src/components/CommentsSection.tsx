@@ -1,4 +1,4 @@
-import { Button, Card, Input, makeStyles } from '@material-ui/core'
+import { Button, Card, ClickAwayListener, Input, makeStyles } from '@material-ui/core'
 import { Edit } from '@material-ui/icons';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import UserContext from '../contexts/UserContext';
@@ -26,8 +26,8 @@ const useStyles = makeStyles(theme => ({
     },
 
     closedCommentInput: {
-        position: 'absolute',
-        top: '-100%'
+        // position: 'absolute',
+        // top: '-100%'
     },
 
     commentCard: {
@@ -74,20 +74,19 @@ export default function CommentsSection({articleId}: {articleId: string}) {
                 articleId,
                 userId: user.uid
             }
-            db.collection('articleComments').add(comment)
+            db.collection('articleComments').add(comment);
+            setCommentInput('');
+            setIsCommentInputOpen(false);
         }
     }
 
     const openCommentInput = () => {
         setCommentInput('');
         setIsCommentInputOpen(true);
-        commentInputRef.current.focus();
     }
 
-    const closeCommentInput: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
-        setTimeout(() => {
-            setIsCommentInputOpen(false);
-        }, 75)
+    const closeCommentInput: (event: React.MouseEvent<Document, MouseEvent>) => void = (e) => {
+        setIsCommentInputOpen(false);
     }
 
     useEffect(() => {
@@ -120,6 +119,12 @@ export default function CommentsSection({articleId}: {articleId: string}) {
             
     }, [articleId])
 
+    useEffect(() => {
+        if(isCommentInputOpen){
+            commentInputRef.current.focus();
+        }
+    }, [isCommentInputOpen])
+
     return (
         <div className={classes.commentsContainer}>
             <div className={classes.header}>
@@ -133,29 +138,34 @@ export default function CommentsSection({articleId}: {articleId: string}) {
                     Write Comment <Edit/>
                 </Button>
             </div>
-            <form 
-                className={`${classes.commentInput} ${!!!isCommentInputOpen && classes.closedCommentInput}`}
-                onSubmit={saveComment}
-            >
-                <Input 
-                    type="text" 
-                    placeholder="Your comment" 
-                    fullWidth
-                    inputRef={commentInputRef}
-                    onBlur={closeCommentInput}
-                    value={commentInput}
-                    required
-                    onChange={e => setCommentInput(e.target.value)}
-                />
-                <Button 
-                    variant="contained" 
-                    color="primary"
-                    className={classes.createButton}
-                    type="submit"
-                >
-                    Post
-                </Button>
-            </form>
+            {
+                isCommentInputOpen  &&
+                <ClickAwayListener onClickAway={closeCommentInput}>
+                    <form 
+                        className={`${classes.commentInput} ${!!!isCommentInputOpen && classes.closedCommentInput}`}
+                        onSubmit={saveComment}
+                    >
+                        <Input 
+                            type="text" 
+                            placeholder="Your comment" 
+                            fullWidth
+                            inputRef={commentInputRef}
+                            // onBlur={closeCommentInput}
+                            value={commentInput}
+                            required
+                            onChange={e => setCommentInput(e.target.value)}
+                        />
+                        <Button 
+                            variant="contained" 
+                            color="primary"
+                            className={classes.createButton}
+                            type="submit"
+                        >
+                            Post
+                        </Button>
+                    </form>
+                </ClickAwayListener>
+            }
 
             <div>
                 {commentsCards}
