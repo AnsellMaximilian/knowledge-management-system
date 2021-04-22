@@ -1,11 +1,10 @@
 import { Button, Card, CardContent, makeStyles } from '@material-ui/core'
 import { CloudUpload } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import FileDetail from '../components/FileDetail';
 import FileUpload from '../components/FileUpload';
-import { FileListData } from '../types';
+import { File } from '../types';
 import { db, storage } from '../utils/firebase';
-import urlFormatter from '../utils/urlFormatter';
 
 const useStyles = makeStyles(theme => ({
     header: {
@@ -55,44 +54,54 @@ export default function Repository() {
     const classes = useStyles();
 
     const [isFileUploadOpen, setIsFileUploadOpen] = useState(false);
-    const [files, setFiles] = useState<FileListData[]>([]);
+    const [isFileDetailOpen, setIsFileDetailOpen] = useState(false);
+    const [files, setFiles] = useState<File[]>([]);
+    const [detailedFile, setDetailedFile] = useState<File | null>(null)
 
     const fileCards = files.map(file => (
-        <Card key={file.name} className={classes.fileCard}>
+        <Card key={file.ref.name} className={classes.fileCard}>
             <CardContent>
-                <Link to={urlFormatter(`test`)}>
-                    <h2 className={classes.fileCardTitle}>{file.name}</h2>
-                </Link>
+                <h2 className={classes.fileCardTitle} onClick={() => openFileDetail(file)}>{file.ref.name}</h2>
                 <h3 className={classes.fileCardUserName}>By {file.userName}</h3>
             </CardContent>
         </Card>
     ))
 
+    const openFileDetail = (file: File) => {
+        setDetailedFile(file);
+        setIsFileDetailOpen(true);
+    }
+
     const getFiles = () => {
         storage.ref().listAll()
             .then(res => {
                 const filePromises = res.items.map(item => {
-                    
-                    return new Promise<FileListData>((resolve, reject) => {
+                    return new Promise<File>((resolve, reject) => {
                         return item.getMetadata()
                             .then(metadata => {
-                                const userId = {
+                                const {userId, description}: {userId: string, description: string} = {
                                     userId: 'unknown',
+                                    description: 'no description',
                                     ...metadata.customMetadata
-                                }.userId;
+                                };
 
-                                db.collection('userProfiles').doc(userId).get()
-                                    .then(userProfileSnapshot => {
-                                        const userName = {
-                                            name: 'Unknown',
-                                            ...userProfileSnapshot.data()
-                                        }.name;
-                                        resolve(
-                                            {
-                                                name: item.name,
-                                                userName
-                                            }
-                                        )
+                                item.getDownloadURL()
+                                    .then(url => {
+                                        db.collection('userProfiles').doc(userId).get()
+                                            .then(userProfileSnapshot => {
+                                                const userName = {
+                                                    name: 'Unknown',
+                                                    ...userProfileSnapshot.data()
+                                                }.name;
+                                                resolve(
+                                                    {
+                                                        ref: item,
+                                                        userName,
+                                                        description,
+                                                        url
+                                                    }
+                                                )
+                                            })
                                     })
                             })
                     })
@@ -128,6 +137,11 @@ export default function Repository() {
                 open={isFileUploadOpen} 
                 setIsFileUploadOpen={setIsFileUploadOpen}
                 getFiles={getFiles}
+            />
+            <FileDetail
+                open={isFileDetailOpen}
+                setIsFileDetailOpen={setIsFileDetailOpen}
+                file={detailedFile}
             />
         </div>
     )
