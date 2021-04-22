@@ -19,3 +19,14 @@ export interface ArticleReadData extends Article {
     userName: string;
     id: string;
 }
+
+export interface Comment {
+    userId: string;
+    articleId: string;
+    content: string;
+}
+
+export interface CommentReadData extends Comment {
+    userName: string;
+    id: string;
+}

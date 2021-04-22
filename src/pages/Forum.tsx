@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { ArticleReadData, Article } from '../types';
 import { db } from '../utils/firebase';
+import urlFormatter from '../utils/urlFormatter';
 
 const useStyles = makeStyles(theme => ({
     createButton: {
@@ -31,12 +32,18 @@ const useStyles = makeStyles(theme => ({
         cursor: 'pointer',
     },
     articleCardTitle: {
-        margin: 0
+        margin: 0,
+        '&:hover': {
+            textDecoration: 'underline'
+        }
     },
     articleCardUserName: {
         margin: 0,
         color: theme.palette.text.secondary,
-        fontWeight: theme.typography.fontWeightRegular
+        fontWeight: theme.typography.fontWeightRegular,
+        '&:hover': {
+            textDecoration: 'underline'
+        }
     }
 }))
 
@@ -49,7 +56,9 @@ export default function Forum() {
         return (
             <Card key={article.id} className={classes.articleCard}>
                 <CardContent>
-                    <h2 className={classes.articleCardTitle}>{article.title}</h2>
+                    <Link to={urlFormatter(`/forum/view/${article.id}`)}>
+                        <h2 className={classes.articleCardTitle}>{article.title}</h2>
+                    </Link>
                     <h3 className={classes.articleCardUserName}>By {article.userName}</h3>
                 </CardContent>
             </Card>
