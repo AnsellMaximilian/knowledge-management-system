@@ -127,6 +127,7 @@ export default function Repository() {
             <FileUpload 
                 open={isFileUploadOpen} 
                 setIsFileUploadOpen={setIsFileUploadOpen}
+                getFiles={getFiles}
             />
         </div>
     )

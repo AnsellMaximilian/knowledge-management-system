@@ -7,6 +7,7 @@ import { storage } from '../utils/firebase'
 interface Props {
     open: boolean;
     setIsFileUploadOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    getFiles: () => void;
 }
 
 const useStyles = makeStyles(theme =>({
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme =>({
     }
 }))
 
-export default function FileUpload({open, setIsFileUploadOpen}: Props) {
+export default function FileUpload({open, setIsFileUploadOpen, getFiles}: Props) {
     const classes = useStyles();
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -42,6 +43,8 @@ export default function FileUpload({open, setIsFileUploadOpen}: Props) {
                 .then(() => {
                     setFileDescription('');
                     setIsFileUploadOpen(false);
+                    // Update file listing
+                    getFiles();
                 })
             
         }
