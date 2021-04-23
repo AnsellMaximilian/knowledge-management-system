@@ -21,9 +21,13 @@ const useStyles = makeStyles(theme => ({
         transform: 'rotate(180deg)',
         transformOrigin: '56.46945px 306.142px'
     },
+    shine: {
+        transition: 'all 1s'
+    },
 
     shineOn:{
-        opacity: "0.487864"
+        opacity: "0.487864",
+        transition: 'all 1s'
     },
 
     shineOff: {
@@ -42,9 +46,9 @@ export default function LightBulbAndSwitch() {
         <svg width="432" height="367" viewBox="0 0 432 367" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="container">
                 <g id="lightbulb">
-                    <path id="shine3" className={isOn ? classes.shineOn : classes.shineOff} d="M272.095 311.564C360.408 311.564 432 241.818 432 155.782C432 69.7459 360.408 0 272.095 0C183.782 0 112.19 69.7459 112.19 155.782C112.19 241.818 183.782 311.564 272.095 311.564Z" fill="#FFFFA8"/>
-                    <path id="shine2" className={isOn ? classes.shineOn : classes.shineOff} d="M272.095 289.127C347.688 289.127 408.969 229.426 408.969 155.782C408.969 82.1374 347.688 22.4369 272.095 22.4369C196.501 22.4369 135.22 82.1374 135.22 155.782C135.22 229.426 196.501 289.127 272.095 289.127Z" fill="#FFFFDC"/>
-                    <path id="shine1" className={isOn ? classes.shineOn : classes.shineOff} d="M272.095 264.881C333.943 264.881 384.082 216.036 384.082 155.782C384.082 95.528 333.943 46.6827 272.095 46.6827C210.246 46.6827 160.108 95.528 160.108 155.782C160.108 216.036 210.246 264.881 272.095 264.881Z" fill="white"/>
+                    <path id="shine3" className={`${isOn ? classes.shineOn : classes.shineOff}`} d="M272.095 311.564C360.408 311.564 432 241.818 432 155.782C432 69.7459 360.408 0 272.095 0C183.782 0 112.19 69.7459 112.19 155.782C112.19 241.818 183.782 311.564 272.095 311.564Z" fill="#FFFFA8"/>
+                    <path id="shine2" className={`${isOn ? classes.shineOn : classes.shineOff}`} d="M272.095 289.127C347.688 289.127 408.969 229.426 408.969 155.782C408.969 82.1374 347.688 22.4369 272.095 22.4369C196.501 22.4369 135.22 82.1374 135.22 155.782C135.22 229.426 196.501 289.127 272.095 289.127Z" fill="#FFFFDC"/>
+                    <path id="shine1" className={`${isOn ? classes.shineOn : classes.shineOff}`} d="M272.095 264.881C333.943 264.881 384.082 216.036 384.082 155.782C384.082 95.528 333.943 46.6827 272.095 46.6827C210.246 46.6827 160.108 95.528 160.108 155.782C160.108 216.036 210.246 264.881 272.095 264.881Z" fill="white"/>
                     <path 
                         id="bulb"
                         className={isOn ? classes.lightOn : classes.lightOff}
