@@ -69,23 +69,23 @@ function App() {
                 </Route>
 
                 <Route exact path={urlFormatter("/profile")}>
-                  <Profile/>
+                  { user ? <Profile/> : <Redirect to={urlFormatter('/signin')}/>}
                 </Route>
 
                 <Route exact path={urlFormatter("/forum")}>
-                  <Forum/>
+                  { user ? <Forum/> : <Redirect to={urlFormatter('/signin')}/>}
                 </Route>
 
                 <Route exact path={urlFormatter("/forum/create")}>
-                  <CreateArticle/>
+                  { user ? <CreateArticle/> : <Redirect to={urlFormatter('/signin')}/>}
                 </Route>
 
                 <Route exact path={urlFormatter("/forum/view/:id")}>
-                  <ViewArticle/>
+                  { user ? <ViewArticle/> : <Redirect to={urlFormatter('/signin')}/>}
                 </Route>
 
                 <Route exact path={urlFormatter("/repository")}>
-                  <Repository/>
+                  { user ? <Repository/> : <Redirect to={urlFormatter('/signin')}/>}
                 </Route>
                 
                 <Route exact path={urlFormatter("/signup")}>
