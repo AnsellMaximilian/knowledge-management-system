@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, makeStyles } from '@material-ui/core'
+import { Button, Card, CardContent, LinearProgress, makeStyles } from '@material-ui/core'
 import { Edit } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
@@ -118,7 +118,13 @@ export default function Forum() {
                 </Button>
             </div>
             <div>
-                {articleCards}
+                {
+                    articles.length ? (
+                        articleCards
+                    ) : (
+                        <LinearProgress color="primary"/>
+                    )
+                }
             </div>
         </div>
     )

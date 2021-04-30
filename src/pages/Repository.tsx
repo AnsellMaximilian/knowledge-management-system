@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, makeStyles } from '@material-ui/core'
+import { Button, Card, CardContent, LinearProgress, makeStyles } from '@material-ui/core'
 import { CloudUpload } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react'
 import FileDetail from '../components/FileDetail';
@@ -132,8 +132,14 @@ export default function Repository() {
                     Upload File <CloudUpload/>
                 </Button>
             </div>
-            <div className={classes.fileCardsContainer}>
-                {fileCards}
+            <div className={`${files.length ? classes.fileCardsContainer : ''}`}>
+                {
+                    files.length ? (
+                        fileCards
+                    ) : (
+                        <LinearProgress color="primary"/>
+                    )
+                }
             </div>
             <FileUpload 
                 open={isFileUploadOpen} 
