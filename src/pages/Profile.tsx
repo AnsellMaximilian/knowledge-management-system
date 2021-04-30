@@ -1,7 +1,9 @@
 import { Button, makeStyles, Paper } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom';
 import UserContext from '../contexts/UserContext'
+import urlFormatter from '../utils/urlFormatter';
 
 const useStyles = makeStyles(theme => ({
     details: {
@@ -41,13 +43,15 @@ export default function Profile() {
                 <div className={classes.container}>
                     <div className={classes.header}>
                         <h1>{user.name}</h1>
-                        <Button 
-                            variant="contained" 
-                            color="primary"
-                            className={classes.editButton}
-                        >
-                            Edit Profile <Edit/>
-                        </Button>
+                        <Link to={urlFormatter('/profile/edit')}>
+                            <Button 
+                                variant="contained" 
+                                color="primary"
+                                className={classes.editButton}
+                            >
+                                Edit Profile <Edit/>
+                            </Button>
+                        </Link>
                     </div>
                     <Paper className={classes.details}>
                         <div className={classes.detailsSection}>

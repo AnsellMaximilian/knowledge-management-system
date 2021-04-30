@@ -16,6 +16,7 @@ import CreateArticle from './pages/CreateArticle';
 import ViewArticle from './pages/ViewArticle';
 import Repository from './pages/Repository';
 import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
 
 const useStyles = makeStyles(theme => ({
   content: {
@@ -39,17 +40,13 @@ function App() {
           ...user,
           name: ''
         }
-        db.collection('userProfiles').doc(user.uid).get()
-          .then(userProfileRef => {
+        db.collection('userProfiles').doc(user.uid).onSnapshot(userProfileRef => {
             userObj = {
               ...userObj,
               ...userProfileRef.data()
             }
             setUser(userObj)
-          })
-          .catch(err => {
-            setUser(userObj);
-          })
+        })
       }else{
         setUser(user);
       }
@@ -70,6 +67,10 @@ function App() {
 
                 <Route exact path={urlFormatter("/profile")}>
                   { user ? <Profile/> : <Redirect to={urlFormatter('/signin')}/>}
+                </Route>
+
+                <Route exact path={urlFormatter("/profile/edit")}>
+                  { user ? <EditProfile/> : <Redirect to={urlFormatter('/signin')}/>}
                 </Route>
 
                 <Route exact path={urlFormatter("/forum")}>
