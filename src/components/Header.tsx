@@ -1,5 +1,5 @@
-import { Container, makeStyles, Popover } from '@material-ui/core'
-import { AccountCircle } from '@material-ui/icons';
+import { Container, IconButton, makeStyles, Popover } from '@material-ui/core'
+import { AccountCircle, Menu } from '@material-ui/icons';
 import React, { useContext, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import UserContext from '../contexts/UserContext';
@@ -10,17 +10,46 @@ const useStyles = makeStyles(theme => ({
     header: {
         backgroundColor: theme.palette.primary.main,
         color: 'white',
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
+        position: 'relative',
+        // zIndex: 20
     },
     nav: {
         display: 'flex',
         justifyContent: 'space-between',
+        // zIndex: 20,
+        [theme.breakpoints.down('sm')]: {
+            '& $openNavButton': {
+                display: 'flex'
+            },
+            '& $mainNavList': {
+                zIndex: 10,
+                position: 'absolute',
+                left: 0,
+                backgroundColor: theme.palette.primary.main,
+                width: '100%',
+                flexDirection: 'column',
+                '& li': {
+                    padding: theme.spacing(1),
+                    margin: 0
+                }
+            }
+        }
     },
     navList: {
         padding: 0,
         margin: 0,
         listStyleType: 'none',
         display: 'flex',
+    },
+
+    mainNavList: {
+      top: '-200%',
+      transition: 'all 0.25s'
+    },
+
+    mainNavListOpen: {
+        top: '100%',
     },
     link: {
         color: 'white',
@@ -49,6 +78,12 @@ const useStyles = makeStyles(theme => ({
                 fontWeight: 'bold'
             }
         }
+    },
+
+    openNavButton: {
+        color: 'white',
+        padding: 0,
+        display: 'none'
     }
 }))
 
@@ -57,12 +92,16 @@ export default function Header() {
     const user = useContext(UserContext);
 
     const [accountMenuButton, setAccountMenuButton] = useState<HTMLLIElement | null>(null);
+    const [isMainNavOpen, setIsMainNavOpen] = useState(false);
 
     return (
         <header className={classes.header}>
             <Container maxWidth="md">
                 <nav className={classes.nav}>
-                    <ul className={classes.navList}>
+                    <IconButton size="small" className={classes.openNavButton} onClick={() => setIsMainNavOpen(isOpen => !isOpen)}>
+                        <Menu color="inherit" fontSize="small"/>
+                    </IconButton>
+                    <ul className={`${classes.navList} ${classes.mainNavList} ${isMainNavOpen && classes.mainNavListOpen}`}>
                         <li><NavLink exact to={`${process.env.PUBLIC_URL + '/'}`} className={classes.link} activeClassName={classes.activeLink}>Home</NavLink></li>
                         <li><NavLink to={`${process.env.PUBLIC_URL + '/forum'}`} className={classes.link} activeClassName={classes.activeLink}>Forum</NavLink></li>
                         <li><NavLink to={`${process.env.PUBLIC_URL + '/repository'}`} className={classes.link} activeClassName={classes.activeLink}>Repository</NavLink></li>
