@@ -1,4 +1,4 @@
-import { Button, makeStyles, Paper } from '@material-ui/core';
+import { Button, LinearProgress, makeStyles, Paper } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
@@ -129,7 +129,7 @@ export default function ViewArticle() {
                     <CommentsSection articleId={article.id}/>
                 </div>
                 :
-                <h1>Article Not Found</h1>
+                <LinearProgress color="primary" />
             }
         </div>
     )
