@@ -9,7 +9,10 @@ const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex',
         justifyContent: 'space-between',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        [theme.breakpoints.down('sm')]: {
+            // justifyContent: 'center'
+        }
     },
 
     title: {
@@ -34,6 +37,12 @@ const useStyles = makeStyles(theme => ({
 
     mainLeft: {
         textAlign: 'left'
+    },
+
+    mainRight: {
+        [theme.breakpoints.down('sm')]: {
+            display: 'none'
+        }
     }
 }))
 
@@ -67,7 +76,7 @@ export default function Home() {
                     </Link>
                 }
             </div>
-            <div>
+            <div className={classes.mainRight}>
                 <LightBulbAndSwitch/>
             </div>
         </div>
